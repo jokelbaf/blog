@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  fmt:
+  lint-website:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
