@@ -1,0 +1,3 @@
+<template>
+	<PostItemsPage />
+</template>

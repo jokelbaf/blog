@@ -1,0 +1,95 @@
+generator client {
+    provider = "prisma-client"
+    output   = "./generated"
+}
+
+datasource db {
+    provider = "postgresql"
+}
+
+
+model User {
+	id        Int       @id @default(autoincrement())
+
+	githubId  Int       @unique @map("github_id")
+
+	login     String    @unique
+	name      String
+	email     String?   @unique
+	avatarUrl String    @map("avatar_url")
+
+	isAdmin   Boolean   @map("is_admin")
+
+	posts     Post[]
+	comments  Comment[]
+	files     File[]
+
+	createdAt DateTime  @default(now()) @map("created_at")
+	updatedAt DateTime  @updatedAt @map("updated_at")
+
+	@@map("users")
+}
+
+model Post {
+	id        	 Int       @id @default(autoincrement())
+	title     	 String
+	description  String
+	content   	 String
+	slug         String    @unique
+	views        Int       @default(0)
+
+	thumbnailUid String?   @map("thumbnail_id")
+  	thumbnail    File?     @relation("PostThumbnail", fields: [thumbnailUid], references: [uid], onDelete: SetNull)
+
+	readTimeSec  Int       @map("read_time_sec")
+	authorId  	 Int	   @map("author_id")
+	author    	 User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+	comments     Comment[]
+	createdAt    DateTime  @default(now()) @map("created_at")
+	updatedAt    DateTime  @updatedAt @map("updated_at")
+
+	@@index([createdAt])
+	@@index([views])
+	@@index([authorId])
+
+	@@map("posts")
+}
+
+model Comment {
+	id        	  Int      @id @default(autoincrement())
+	content   	  String
+	likedByAuthor Boolean  @default(false) @map("liked_by_author")
+
+	authorId  	  Int      @map("author_id")
+	author    	  User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+	postId        Int      @map("post_id")
+	post          Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+	createdAt     DateTime @default(now()) @map("created_at")
+	updatedAt     DateTime @updatedAt @map("updated_at")
+
+	@@index([createdAt])
+	@@index([authorId])
+
+	@@map("comments")
+}
+
+// fileUrl = `${process.PUBLIC_URL}/files/{file.uid}.{file.ext}`
+model File {
+	uid           String   @id @default(uuid())
+
+	name          String
+	ext 	      String
+	size          Int
+
+	authorId      Int      @map("author_id")
+	author        User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+	postThumbnail Post[]   @relation("PostThumbnail")
+
+	createdAt     DateTime @default(now()) @map("created_at")
+	updatedAt     DateTime @updatedAt @map("updated_at")
+
+	@@map("files")
+}

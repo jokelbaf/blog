@@ -1,0 +1,41 @@
+name: Format Website Code
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  fmt:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v6
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@master
+        with:
+          version: latest
+          cache: true
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@master
+        with:
+          version: latest
+          cache: true
+
+      - name: Install dependencies
+        run: cd website && pnpm i
+
+      - name: Lint and format code
+        run: cd website && pnpm lint --fix
+
+      - name: Commit and push if needed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet; then
+            git add .
+            git commit -m "style(website): Auto-format via eslint"
+            git push
+          fi
