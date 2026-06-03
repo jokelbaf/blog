@@ -1,0 +1,58 @@
+services:
+  db:
+    image: postgres:18
+    container_name: db
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${PG_DB}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PG_USER} -d ${PG_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  website:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: website
+    ports:
+      - "13013:13013"
+    environment:
+      PORT: 13013
+      FILES_MOUNT_PATH: /app/data
+      DATABASE_URL: "postgres://${PG_USER}:${PG_PASSWORD}@db:5432/${PG_DB}"
+      NUXT_OAUTH_GITHUB_CLIENT_ID: ${NUXT_OAUTH_GITHUB_CLIENT_ID}
+      NUXT_OAUTH_GITHUB_CLIENT_SECRET: ${NUXT_OAUTH_GITHUB_CLIENT_SECRET}
+      NUXT_SESSION_PASSWORD: ${NUXT_SESSION_PASSWORD}
+      ADMIN_GITHUB_LOGIN: ${ADMIN_GITHUB_LOGIN}
+      AI_GATEWAY_API_KEY: ${AI_GATEWAY_API_KEY}
+    volumes:
+      - website_files:/app/data
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:13013/api/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+  migrate:
+    build:
+      context: .
+      dockerfile: db/Dockerfile
+    environment:
+      DATABASE_URL: "postgres://${PG_USER}:${PG_PASSWORD}@db:5432/${PG_DB}"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: "no"
+
+volumes:
+  postgres_data:
+  website_files:

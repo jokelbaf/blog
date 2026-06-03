@@ -48,7 +48,20 @@ To run the project locally, follow these steps:
 
 ## Production
 
-TBD.
+The production stack runs via Docker Compose. It automatically builds and starts website server and Postgres database, and applies database migrations to ensure the schema is up to date.
+
+1. Set up environment variables in your CI dashboard or locally (`website/.env` file). See [`.env.example`](website/.env.example) for reference.
+
+2. Build and start all services:
+   ```bash
+   # Locally
+   docker-compose --env-file website/.env up -d
+   # Or via CI (if envs are set there)
+   docker-compose up -d
+   ```
+   On first start, the `migrate` service runs `prisma migrate deploy` to initialize the database schema, then exits. The website starts only after migrations complete successfully.
+
+3. The website should be available at `http://localhost:13013`.
 
 ## License
 

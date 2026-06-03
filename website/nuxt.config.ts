@@ -21,10 +21,6 @@ export default defineNuxtConfig({
 		},
 	},
 
-	routeRules: {
-		'/': { prerender: true },
-	},
-
 	devServer: {
 		port: 13013,
 	},
@@ -77,5 +73,6 @@ export default defineNuxtConfig({
 
 	prometheus: {
 		prometheusPath: '/api/metrics',
+		healthCheckPath: '/api/health',
 	},
 });

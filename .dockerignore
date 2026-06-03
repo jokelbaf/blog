@@ -1,0 +1,16 @@
+.git
+.github
+
+**/node_modules
+**/.nuxt
+**/.output
+**/dist
+**/build
+**/target
+
+wasm/module/pkg
+website/.data
+website/.env
+website/.env.*
+
+Dockerfile
