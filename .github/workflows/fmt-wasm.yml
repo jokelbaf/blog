@@ -18,9 +18,6 @@ jobs:
           rustup default nightly
           rustup component add rustfmt
 
-      - name: Generate build artifacts
-        run: cd wasm && cargo check --all
-
       - name: Format code
         run: cd wasm && cargo fmt --all
 

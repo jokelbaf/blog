@@ -12,6 +12,19 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v6
 
+      - name: Set up pnpm
+        uses: pnpm/action-setup@master
+        with:
+          version: latest
+          cache: true
+          cache_dependency_path: website/pnpm-lock.yaml
+
+      - name: Install website dependencies
+        run: cd website && pnpm i
+
+      - name: Run obfuscator
+        run: cd website && pnpm obfuscate
+
       - name: Set up Rust
         run: |
           rustup update nightly
@@ -19,4 +32,4 @@ jobs:
           rustup component add clippy
 
       - name: Run Clippy
-        run: cd wasm && cargo clippy --all-targets --all-features -- -D warnings
+        run: cd wasm && cargo clippy --workspace --all-targets --all-features -- -D warnings
