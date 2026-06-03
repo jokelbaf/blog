@@ -23,10 +23,11 @@ To run the project locally, follow these steps:
    git clone https://github.com/jokelbaf/blog.git
    cd blog
    ```
-2. Install website dependencies:
+2. Install website dependencies and build prisma client:
    ```bash
    cd website
    pnpm i
+   pnpm exec prisma generate
    ```
 3. Obfuscate wasm JS script:
    ```bash
