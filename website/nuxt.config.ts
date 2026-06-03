@@ -1,6 +1,6 @@
 import { fileURLToPath } from 'node:url';
 
-const wasmPkgPath = fileURLToPath(new URL('../wasm/pkg', import.meta.url));
+const wasmPkgPath = fileURLToPath(new URL('../wasm/module/pkg', import.meta.url));
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({

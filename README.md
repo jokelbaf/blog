@@ -23,23 +23,28 @@ To run the project locally, follow these steps:
    git clone https://github.com/jokelbaf/blog.git
    cd blog
    ```
-2. Build the wasm module:
+2. Install website dependencies:
    ```bash
-   cd wasm
-   wasm-pack build --target web
-   ```
-3. Install website dependencies:
-   ```bash
-   cd ../website
+   cd website
    pnpm i
    ```
-3. Set up environment variables:
-   Create a `.env` file in the `website` directory and configure env variables. See [`.env.example`](website/.env.example) for reference.
-4. Run the development server:
+3. Obfuscate wasm JS script:
    ```bash
+   pnpm obfuscate
+   ```
+4. Build the wasm module:
+   ```bash
+   cd ../wasm/module
+   wasm-pack build --target web
+   ```
+5. Set up environment variables:
+	Create a `.env` file in the `website` directory and configure env variables. See [`.env.example`](website/.env.example) for reference.
+6. Run the development server:
+   ```bash
+   cd ../../website
    pnpm dev
    ```
-5. Open your browser and navigate to `http://localhost:13013` to see the website.
+7. Open your browser and navigate to `http://localhost:13013` to see the website.
 
 ## Production
 
