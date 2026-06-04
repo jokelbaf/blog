@@ -12,6 +12,24 @@ if (error.value) {
 		fatal: true,
 	});
 }
+
+const imgUrl = computed(() => {
+	if (!post.value?.thumbnail) return undefined;
+	return getFileUrl(post.value.thumbnail.uid, post.value.thumbnail.ext);
+});
+
+useSeoMeta({
+	title: post.value?.title,
+	description: post.value?.description,
+
+	ogTitle: `${post.value?.title} | JokelBaf's Blog`,
+	ogDescription: post.value?.description,
+	ogImage: imgUrl,
+
+	ogType: 'article',
+	author: post.value?.author.name,
+	articlePublishedTime: post.value?.createdAt,
+});
 </script>
 
 <template>
