@@ -34,7 +34,7 @@ export default defineNuxtConfig({
 
 	vite: {
 		server: {
-			allowedHosts: ['20d1-93-127-127-112.ngrok-free.app'],
+			allowedHosts: true,
 			fs: {
 				allow: [wasmPkgPath],
 			},
