@@ -1,4 +1,5 @@
 import { fileURLToPath } from 'node:url';
+import obfuscator from 'vite-plugin-bundle-obfuscator';
 
 const wasmPkgPath = fileURLToPath(new URL('../wasm/module/pkg', import.meta.url));
 
@@ -53,6 +54,37 @@ export default defineNuxtConfig({
 				'@tiptap/pm/view',
 			],
 		},
+		plugins: [
+			obfuscator({
+				log: true,
+				autoExcludeNodeModules: true,
+				threadPool: true,
+				options: {
+					compact: true,
+					controlFlowFlattening: true,
+					controlFlowFlatteningThreshold: 1,
+					deadCodeInjection: true,
+					deadCodeInjectionThreshold: 0.2,
+					numbersToExpressions: true,
+					splitStrings: true,
+					splitStringsChunkLength: 5,
+					stringArray: true,
+					stringArrayEncoding: ['rc4'],
+					stringArrayRotate: true,
+					stringArrayShuffle: true,
+					stringArrayIndexShift: true,
+					stringArrayCallsTransform: true,
+					stringArrayCallsTransformThreshold: 0.5,
+					stringArrayWrappersCount: 2,
+					stringArrayWrappersChainedCalls: true,
+					stringArrayWrappersType: 'function',
+					stringArrayIndexesType: ['hexadecimal-number', 'hexadecimal-numeric-string'],
+					transformObjectKeys: true,
+					renameGlobals: true,
+					simplify: true,
+				},
+			}),
+		],
 	},
 
 	eslint: {
