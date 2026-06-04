@@ -47,6 +47,7 @@ export default defineNuxtConfig({
 				'@tiptap/core',
 				'@tiptap/vue-3',
 				'remark-ins',
+				'pako',
 			],
 			exclude: [
 				'@tiptap/pm',
