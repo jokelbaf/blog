@@ -99,6 +99,18 @@ const orderDirItems = ref<SelectItem[]>([
 					:post="post"
 				/>
 			</UBlogPosts>
+			<div
+				v-if="!posts?.length"
+				class="flex flex-col items-center justify-center w-full h-80"
+			>
+				<UIcon
+					name="lucide:box"
+					class="w-16 h-16 text-muted mb-4"
+				/>
+				<p class="text-lg font-medium text-muted">
+					No posts found
+				</p>
+			</div>
 		</UContainer>
 	</div>
 </template>
