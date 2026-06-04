@@ -1,5 +1,7 @@
 <template>
 	<UContainer class="py-8">
-		<PostEditor />
+		<ClientOnly>
+			<PostEditor />
+		</ClientOnly>
 	</UContainer>
 </template>

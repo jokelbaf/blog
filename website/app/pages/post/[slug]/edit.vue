@@ -16,9 +16,11 @@ if (error.value) {
 
 <template>
 	<UContainer class="py-8">
-		<PostEditor
-			v-if="post"
-			:post="post"
-		/>
+		<ClientOnly>
+			<PostEditor
+				v-if="post"
+				:post="post"
+			/>
+		</ClientOnly>
 	</UContainer>
 </template>
