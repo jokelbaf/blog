@@ -47,6 +47,8 @@ COPY --from=node-deps /app/website ./website
 COPY --from=node-deps /app/website/node_modules ./website/node_modules
 COPY --from=wasm-builder /app/wasm/module/pkg ./wasm/module/pkg
 
+ENV FILES_MOUNT_PATH=/app/data
+
 WORKDIR /app/website
 RUN DATABASE_URL=no pnpm exec prisma generate
 RUN pnpm build
