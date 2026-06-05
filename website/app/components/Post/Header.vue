@@ -15,10 +15,10 @@ const post = props.post;
 const links = ref<ButtonProps[]>([
 	...user.value?.isAdmin
 		? [{
-			label: 'Edit Post',
-			to: `/post/${post.slug}/edit`,
-			icon: 'lucide:pencil-line',
-		}]
+				label: 'Edit Post',
+				to: `/post/${post.slug}/edit`,
+				icon: 'lucide:pencil-line',
+			}]
 		: [],
 	{
 		label: 'Share',

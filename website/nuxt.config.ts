@@ -1,17 +1,33 @@
 import { fileURLToPath } from 'node:url';
 import obfuscator from 'vite-plugin-bundle-obfuscator';
+import { definePerson } from 'nuxt-schema-org/schema';
 
 const wasmPkgPath = fileURLToPath(new URL('../wasm/module/pkg', import.meta.url));
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-	modules: ['@nuxt/eslint', '@nuxt/ui', '@nuxtjs/mdc', 'motion-v/nuxt', 'nuxt-auth-utils', 'nuxt-file-storage', '@artmizu/nuxt-prometheus'],
+	modules: [
+		'@nuxt/eslint',
+		'@nuxt/ui',
+		'@nuxtjs/mdc',
+		'motion-v/nuxt',
+		'nuxt-auth-utils',
+		'nuxt-file-storage',
+		'@artmizu/nuxt-prometheus',
+		'@nuxtjs/seo',
+	],
 
 	devtools: {
 		enabled: true,
 	},
 
 	css: ['~/assets/css/main.css'],
+
+	site: {
+		url: 'https://blog.jokelbaf.dev',
+		name: 'JokelBaf\'s Blog',
+		defaultLocale: 'en',
+	},
 
 	mdc: {
 		highlight: {
@@ -103,8 +119,35 @@ export default defineNuxtConfig({
 		mount: process.env.FILES_MOUNT_PATH,
 	},
 
+	ogImage: {
+		defaults: {
+			width: 1200,
+			height: 630,
+			extension: 'png',
+		},
+	},
+
 	prometheus: {
 		prometheusPath: '/api/metrics',
 		healthCheckPath: '/api/health',
+	},
+
+	schemaOrg: {
+		identity: definePerson({
+			name: 'JokelBaf',
+
+			image: '/avatar.png',
+			description: 'A full-stack developer and reverse engineer who loves to write about technology and programming.',
+
+			url: 'jokelbaf.dev',
+			sameAs: [
+				'https://twitter.com/jokelbaf',
+				'https://github.com/jokelbaf',
+			],
+		}),
+	},
+
+	sitemap: {
+		sources: ['/api/__sitemap__/urls'],
 	},
 });

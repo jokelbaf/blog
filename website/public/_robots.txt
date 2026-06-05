@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /post/new
+Disallow: /login/callback

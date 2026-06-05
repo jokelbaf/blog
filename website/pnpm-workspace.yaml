@@ -4,5 +4,6 @@ allowBuilds:
   better-sqlite3: true
   esbuild: false
   prisma: false
+  sharp: false
   unrs-resolver: false
   vue-demi: false

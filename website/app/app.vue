@@ -23,6 +23,10 @@ useSeoMeta({
 	twitterCard: 'summary_large_image',
 	themeColor: '#a684ff',
 });
+
+definePageMeta({
+	robots: { noai: true },
+});
 </script>
 
 <template>

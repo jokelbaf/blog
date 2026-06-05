@@ -21,12 +21,12 @@ const dropdownItems = computed<DropdownMenuItem[][]>(() => {
 		],
 		...(user.value.isAdmin
 			? [[
-				{
-					label: 'New Post',
-					icon: 'lucide:pencil-line',
-					to: '/post/new',
-				},
-			]]
+					{
+						label: 'New Post',
+						icon: 'lucide:pencil-line',
+						to: '/post/new',
+					},
+				]]
 			: []),
 		[
 			{

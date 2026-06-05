@@ -13,22 +13,24 @@ if (error.value) {
 	});
 }
 
-const imgUrl = computed(() => {
-	if (!post.value?.thumbnail) return undefined;
-	return getFileUrl(post.value.thumbnail.uid, post.value.thumbnail.ext);
-});
-
 useSeoMeta({
 	title: post.value?.title,
 	description: post.value?.description,
 
 	ogTitle: `${post.value?.title} | JokelBaf's Blog`,
 	ogDescription: post.value?.description,
-	ogImage: imgUrl,
 
 	ogType: 'article',
 	author: post.value?.author.name,
 	articlePublishedTime: post.value?.createdAt,
+});
+
+defineOgImage('BlogPostCard', {
+	title: post.value!.title,
+	description: post.value!.description,
+	author: post.value!.author.name,
+	readTimeSec: post.value!.readTimeSec,
+	date: formatPostDate(post.value!.createdAt),
 });
 </script>
 

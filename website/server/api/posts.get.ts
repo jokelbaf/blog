@@ -11,12 +11,12 @@ export default defineEventHandler(async (event) => {
 	const posts = await prisma.post.findMany({
 		where: search
 			? {
-				OR: [
-					{ title: { contains: search, mode: 'insensitive' } },
-					{ description: { contains: search, mode: 'insensitive' } },
-					{ content: { contains: search, mode: 'insensitive' } },
-				],
-			}
+					OR: [
+						{ title: { contains: search, mode: 'insensitive' } },
+						{ description: { contains: search, mode: 'insensitive' } },
+						{ content: { contains: search, mode: 'insensitive' } },
+					],
+				}
 			: undefined,
 		orderBy: {
 			[orderBy]: orderDir,
