@@ -29,6 +29,7 @@ defineOgImage('BlogPostCard', {
 	title: post.value!.title,
 	description: post.value!.description,
 	author: post.value!.author.name,
+	avatarUrl: post.value!.author.avatarUrl,
 	readTimeSec: post.value!.readTimeSec,
 	date: formatPostDate(post.value!.createdAt),
 });
