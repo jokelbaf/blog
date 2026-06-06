@@ -47,6 +47,10 @@ const items = computed<NavigationMenuItem[]>(() => [{
 	label: 'Posts',
 	to: '/posts',
 	active: route.path.startsWith('/posts'),
+}, {
+	label: 'Changelog',
+	to: '/changelog',
+	active: route.path === '/changelog',
 }]);
 
 const mobileMenuVariants: { [k: string]: VariantType | ((custom: unknown) => VariantType) } = {

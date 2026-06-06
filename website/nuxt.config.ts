@@ -38,6 +38,12 @@ export default defineNuxtConfig({
 		},
 	},
 
+	runtimeConfig: {
+		githubToken: process.env.GITHUB_TOKEN,
+		githubOwner: process.env.GITHUB_OWNER,
+		githubRepo: process.env.GITHUB_REPO,
+	},
+
 	devServer: {
 		port: 13013,
 	},
