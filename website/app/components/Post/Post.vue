@@ -27,7 +27,7 @@ const tocLinks = computed(() => parsed.value?.toc?.links ?? []);
 
 <template>
 	<UPage
-		class="container mx-auto px-4 sm:px-6 lg:px-8 py-8"
+		class="container mx-auto px-4 sm:px-6 lg:px-8 md:py-8"
 	>
 		<UPageBody :ui="{ base: 'pb-8' }">
 			<img
