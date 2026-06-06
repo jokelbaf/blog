@@ -1,6 +1,11 @@
 <script setup lang="ts">
-import type { SelectItem } from '@nuxt/ui';
 import { refDebounced } from '@vueuse/core';
+
+interface OrderItem<V extends string> {
+	label: string;
+	icon: string;
+	value: V;
+}
 
 const route = useRoute();
 const router = useRouter();
@@ -27,35 +32,35 @@ if (error.value) {
 	});
 }
 
-const orderByItems = ref<SelectItem[]>([
+const orderByItems = ref<OrderItem<typeof orderBy['value']>[]>([
 	{
-		type: 'item',
 		label: 'Date',
 		icon: 'lucide:calendar',
 		value: 'createdAt',
 	},
 	{
-		type: 'item',
 		label: 'Title',
 		icon: 'lucide:type',
 		value: 'title',
 	},
 ]);
 
-const orderDirItems = ref<SelectItem[]>([
+const orderByLabel = computed(() => orderByItems.value.find(i => i.value === orderBy.value)?.label);
+
+const orderDirItems = ref<OrderItem<typeof orderDir['value']>[]>([
 	{
-		type: 'item',
 		label: 'Ascending',
 		icon: 'lucide:arrow-up',
 		value: 'asc',
 	},
 	{
-		type: 'item',
 		label: 'Descending',
 		icon: 'lucide:arrow-down',
 		value: 'desc',
 	},
 ]);
+
+const orderDirLabel = computed(() => orderDirItems.value.find(i => i.value === orderDir.value)?.label);
 </script>
 
 <template>
@@ -65,7 +70,7 @@ const orderDirItems = ref<SelectItem[]>([
 				title="Posts"
 				description="Browse the latest posts on my blog. You can also use the search bar and filters to find specific posts."
 			/>
-			<div class="flex justify-between items-center">
+			<div class="flex justify-between items-center gap-3">
 				<UInput
 					v-model="search"
 					placeholder="Search..."
@@ -77,17 +82,29 @@ const orderDirItems = ref<SelectItem[]>([
 						:items="orderByItems"
 						icon="lucide:list-chevrons-up-down"
 						:ui="{
+							base: 'h-8',
+							content: 'w-auto min-w-(--reka-select-trigger-width)',
 							trailingIcon: 'group-data-[state=open]:rotate-180 transition-transform duration-200',
 						}"
-					/>
+					>
+						<template #default>
+							<span class="inline-block w-0 overflow-hidden whitespace-nowrap sm:w-auto">{{ orderByLabel }}</span>
+						</template>
+					</USelect>
 					<USelect
 						v-model="orderDir"
 						:items="orderDirItems"
 						icon="lucide:arrow-up-down"
 						:ui="{
+							base: 'h-8',
+							content: 'w-auto min-w-(--reka-select-trigger-width)',
 							trailingIcon: 'group-data-[state=open]:rotate-180 transition-transform duration-200',
 						}"
-					/>
+					>
+						<template #default>
+							<span class="inline-block w-0 overflow-hidden whitespace-nowrap sm:w-auto">{{ orderDirLabel }}</span>
+						</template>
+					</USelect>
 				</div>
 			</div>
 		</UContainer>
