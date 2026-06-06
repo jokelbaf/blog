@@ -53,4 +53,7 @@ if (error.value) {
 .changelog-body :deep(h2) {
 	margin-top: 2rem;
 }
+.changelog-body :deep(h1) {
+	margin-bottom: 1.2rem;
+}
 </style>
