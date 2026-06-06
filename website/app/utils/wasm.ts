@@ -46,18 +46,6 @@ function decodeInWorker(): Promise<DecodedPixels> {
 	});
 }
 
-async function canvasToBlob(canvas: HTMLCanvasElement): Promise<Blob> {
-	return new Promise((resolve, reject) => {
-		canvas.toBlob((blob) => {
-			if (blob) {
-				resolve(blob);
-			} else {
-				reject(new Error('Failed to create blob'));
-			}
-		}, 'image/png');
-	});
-}
-
 /**
  * Log the easter egg image to the console.
  */
@@ -72,15 +60,10 @@ export async function logImage(): Promise<void> {
 		.getContext('2d')!
 		.putImageData(new ImageData(pixels, width, height), 0, 0);
 
-	const blob = await canvasToBlob(canvas);
-	const url = URL.createObjectURL(blob);
+	const url = canvas.toDataURL();
 
-	try {
-		console.log(
-			'%c ',
-			`font-size: 1px; padding: ${height / 4}px ${width / 4}px; background: url(${url}) no-repeat; background-size: ${width / 2}px ${height / 2}px;`,
-		);
-	} finally {
-		URL.revokeObjectURL(url);
-	}
+	console.log(
+		'%c ',
+		`font-size: 1px; padding: ${height / 4}px ${width / 4}px; background: url(${url}) no-repeat; background-size: ${width / 2}px ${height / 2}px;`,
+	);
 }
