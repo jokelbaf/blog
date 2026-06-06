@@ -164,13 +164,15 @@ onUnmounted(() => {
 				</button>
 
 				<div
-					v-show="isOpen"
-					class="relative overflow-hidden lg:hidden"
+					class="grid transition-[grid-template-rows] duration-300 ease-out lg:hidden"
+					:class="isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'"
 				>
-					<ReuseContentTemplate />
+					<div class="relative overflow-hidden">
+						<ReuseContentTemplate />
+					</div>
 				</div>
 
-				<p class="text-sm font-semibold flex items-center py-1.5 -mt-1.5 lg:flex">
+				<p class="text-sm font-semibold hidden items-center py-1.5 -mt-1.5 lg:flex">
 					<span class="truncate">{{ props.title ?? 'On this page' }}</span>
 				</p>
 
