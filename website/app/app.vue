@@ -22,10 +22,7 @@ useSeoMeta({
 	ogImage: '/meta.png',
 	twitterCard: 'summary_large_image',
 	themeColor: '#a684ff',
-});
-
-definePageMeta({
-	robots: { noai: true },
+	robots: 'noai',
 });
 </script>
 
