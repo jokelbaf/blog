@@ -2,24 +2,12 @@
     const r = await fetch(`https://cdn.mahiru.one/mahiru.png?t=${Date.now()}`);
     const b = await r.blob();
 
-    const url = URL.createObjectURL(b);
-    const img = new Image();
-
-    await new Promise((res, rej) => {
-        img.onload = res;
-        img.onerror = rej;
-        img.src = url;
-    });
-
-    const canvas = document.createElement("canvas");
-    canvas.width = img.width;
-    canvas.height = img.height;
-
+    const bitmap = await createImageBitmap(b);
+    const canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
     const ctx = canvas.getContext("2d");
-    ctx.drawImage(img, 0, 0);
-    URL.revokeObjectURL(url);
+    ctx.drawImage(bitmap, 0, 0);
 
-    const rgba = ctx.getImageData(0, 0, img.width, img.height).data;
+    const rgba = ctx.getImageData(0, 0, bitmap.width, bitmap.height).data;
 
     const chunks = [];
     for (let i = 0; i < rgba.length; i += 4) {
