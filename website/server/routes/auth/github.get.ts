@@ -4,6 +4,8 @@ export default defineOAuthGitHubEventHandler({
 	},
 
 	async onSuccess(event, { user }) {
+		const config = useRuntimeConfig();
+
 		let dbUser = await prisma.user.findUnique({
 			where: { githubId: user.id },
 		});
@@ -16,7 +18,7 @@ export default defineOAuthGitHubEventHandler({
 					name: user.name,
 					email: user.email,
 					avatarUrl: user.avatar_url,
-					isAdmin: user.login === process.env.ADMIN_GITHUB_LOGIN,
+					isAdmin: user.login === config.githubOwner,
 				},
 			});
 		}
