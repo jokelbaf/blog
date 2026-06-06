@@ -20,12 +20,8 @@ export default defineCachedEventHandler(async () => {
 	);
 
 	return releases.map(r => ({
-		id: r.id,
-		tag: r.tag_name,
-		title: r.name,
 		body: r.body,
 		date: r.published_at,
-		url: r.html_url,
 	}));
 }, {
 	maxAge: 60 * 60, // 1 hour
