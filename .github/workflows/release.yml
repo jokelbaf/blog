@@ -19,3 +19,4 @@ jobs:
       - uses: jokelbaf/pnpm-release@master
         with:
           package_path: website/package.json
+          cliff_template: https://cdn.jokelbaf.dev/blog/cliff-template.toml
