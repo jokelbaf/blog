@@ -35,7 +35,8 @@ export default defineOAuthGitHubEventHandler({
 	},
 
 	onError(event, error) {
-		console.error('GitHub OAuth error:', error);
+		const logger = createRequestLogger(event);
+		logger.error({ err: error }, 'GitHub OAuth failed');
 
 		return sendRedirect(event, '/login/callback?error=oauth_failed');
 	},
