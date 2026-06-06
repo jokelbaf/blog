@@ -33,7 +33,9 @@ if (error.value) {
 				:date="release.date"
 			>
 				<template #body>
-					<MDC :value="release.body" />
+					<div class="changelog-body">
+						<MDC :value="release.body" />
+					</div>
 				</template>
 			</UChangelogVersion>
 		</UChangelogVersions>
@@ -42,3 +44,13 @@ if (error.value) {
 		</p>
 	</UContainer>
 </template>
+
+<style scoped>
+.changelog-body :deep(hr) {
+	margin-top: 1.5rem;
+	margin-bottom: 1.5rem;
+}
+.changelog-body :deep(h2) {
+	margin-top: 2rem;
+}
+</style>
