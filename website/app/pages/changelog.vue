@@ -47,8 +47,8 @@ if (error.value) {
 
 <style scoped>
 .changelog-body :deep(hr) {
-	margin-top: 1.5rem;
-	margin-bottom: 1.5rem;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
 }
 .changelog-body :deep(h2) {
 	margin-top: 2rem;
