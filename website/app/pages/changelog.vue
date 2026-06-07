@@ -54,16 +54,3 @@ useSeoMeta({
 		</p>
 	</UContainer>
 </template>
-
-<style scoped>
-.changelog-body :deep(hr) {
-	margin-top: 1rem;
-	margin-bottom: 1rem;
-}
-.changelog-body :deep(h2) {
-	margin-top: 2rem;
-}
-.changelog-body :deep(h1) {
-	margin-bottom: 1.2rem;
-}
-</style>

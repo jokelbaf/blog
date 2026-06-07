@@ -4,3 +4,14 @@
 @theme static {
   --font-sans: 'Geist', sans-serif;
 }
+
+.changelog-body hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.changelog-body h2 {
+  margin-top: 2rem;
+}
+.changelog-body h1 {
+  margin-bottom: 1.2rem;
+}
