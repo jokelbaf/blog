@@ -8,6 +8,16 @@ if (error.value) {
 		fatal: true,
 	});
 }
+
+const title = 'Changelog';
+const description = 'View the changelog of the website, including new features, improvements, and bug fixes.';
+
+useSeoMeta({
+	title,
+	ogTitle: title,
+	description,
+	ogDescription: description,
+});
 </script>
 
 <template>
