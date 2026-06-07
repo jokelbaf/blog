@@ -27,7 +27,7 @@ if (error.value) {
 			<USeparator class="my-6 sm:my-8" />
 		</div>
 		<UChangelogVersions>
-			<UChangelogVersion
+			<AppChangelogVersion
 				v-for="(release, index) in releases"
 				:key="index"
 				:date="release.date"
@@ -37,7 +37,7 @@ if (error.value) {
 						<MDC :value="release.body" />
 					</div>
 				</template>
-			</UChangelogVersion>
+			</AppChangelogVersion>
 		</UChangelogVersions>
 		<p class="text-center text-sm text-muted mt-8 lg:mt-16">
 			You've reached the beginning of the story...
