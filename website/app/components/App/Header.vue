@@ -76,7 +76,17 @@ const mobileMenuVariants: { [k: string]: VariantType | ((custom: unknown) => Var
 </script>
 
 <template>
-	<UHeader mode="drawer">
+	<UHeader
+		mode="drawer"
+		:menu="{
+			direction: 'right',
+			handle: false,
+		}"
+		:ui="{
+			content: 'w-[70vw] sm:w-56',
+			body: 'w-full',
+		}"
+	>
 		<template #left>
 			<NuxtLink
 				to="/"
@@ -182,7 +192,6 @@ const mobileMenuVariants: { [k: string]: VariantType | ((custom: unknown) => Var
 			<UNavigationMenu
 				:items="items"
 				orientation="vertical"
-				class="-mx-2.5"
 			/>
 		</template>
 	</UHeader>
