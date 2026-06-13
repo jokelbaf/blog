@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { SerializeObject } from 'nitropack';
+
 import type { PostDetail } from '../../../../shared/types/post';
 import { getFileUrl } from '../../../utils/post';
 
@@ -35,9 +36,12 @@ const thumbnailSrc = computed(() => {
 	return null;
 });
 
+const isDraft = ref(post?.isDraft ?? false);
 const loading = ref(false);
 const toast = useToast();
 const router = useRouter();
+
+const submitLabel = computed(() => post ? 'Update Post' : 'Create Post');
 
 async function submit() {
 	if (!title.value.trim() || !description.value.trim() || !content.value.trim()) {
@@ -58,6 +62,7 @@ async function submit() {
 					title: title.value.trim(),
 					description: description.value.trim(),
 					content: content.value,
+					isDraft: isDraft.value,
 					...(thumbnail && { thumbnail }),
 				},
 			});
@@ -69,10 +74,11 @@ async function submit() {
 					title: title.value.trim(),
 					description: description.value.trim(),
 					content: content.value,
+					isDraft: isDraft.value,
 					...(thumbnail && { thumbnail }),
 				},
 			});
-			toast.add({ title: 'Post created', color: 'success' });
+			toast.add({ title: isDraft.value ? 'Draft saved' : 'Post published', color: 'success' });
 			await router.push(`/post/${newPost.slug}/edit`);
 		}
 	} catch (e) {
@@ -162,9 +168,13 @@ async function submit() {
 		<PostEditorCore v-model:content="content" />
 
 		<template #footer>
-			<div class="flex justify-end">
+			<div class="flex items-center justify-between">
+				<USwitch
+					v-model="isDraft"
+					label="Make a Draft"
+				/>
 				<UButton
-					:label="post ? 'Update Post' : 'Create Post'"
+					:label="submitLabel"
 					:loading="loading"
 					@click="submit"
 				/>

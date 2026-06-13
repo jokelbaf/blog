@@ -1,29 +1,27 @@
-import { postsQuerySchema } from '../schemas/post';
+import { draftsQuerySchema } from '../schemas/post';
 
 export default defineEventHandler(async (event) => {
-	const result = await getValidatedQuery(event, q => postsQuerySchema.safeParse(q));
+	await requireUserSession(event);
+
+	const result = await getValidatedQuery(event, q => draftsQuerySchema.safeParse(q));
 
 	if (!result.success)
 		throwValidationError(result);
 
-	const { search, orderBy = 'createdAt', orderDir = 'desc' } = result.data;
+	const { search } = result.data;
 
 	const posts = await prisma.post.findMany({
 		where: {
-			isDraft: false,
+			isDraft: true,
 			...(
 				search
 					? {
 							OR: [
 								{ title: { contains: search, mode: 'insensitive' } },
 								{ description: { contains: search, mode: 'insensitive' } },
-								{ content: { contains: search, mode: 'insensitive' } },
 							],
 						}
 					: undefined),
-		},
-		orderBy: {
-			[orderBy]: orderDir,
 		},
 		include: {
 			thumbnail: {

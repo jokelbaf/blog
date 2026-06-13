@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
 	if (!result.success)
 		throwValidationError(result);
 
-	const { id, title, description, thumbnail, content } = result.data;
+	const { id, title, description, thumbnail, content, isDraft } = result.data;
 
 	const dbPost = await prisma.post.findUnique({
 		where: { id },
@@ -69,6 +69,7 @@ export default defineEventHandler(async (event) => {
 				slug: newSlug,
 				content,
 				readTimeSec,
+				isDraft,
 				thumbnail: newThumbnail && { connect: { uid: newThumbnail.uid } },
 			},
 			include: {

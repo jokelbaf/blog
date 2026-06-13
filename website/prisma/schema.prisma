@@ -38,6 +38,8 @@ model Post {
 	slug         String    @unique
 	views        Int       @default(0)
 
+	isDraft      Boolean   @default(false) @map("is_draft")
+
 	thumbnailUid String?   @map("thumbnail_id")
   	thumbnail    File?     @relation("PostThumbnail", fields: [thumbnailUid], references: [uid], onDelete: SetNull)
 

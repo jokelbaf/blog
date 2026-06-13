@@ -8,6 +8,7 @@ export const postCreateSchema = z.object({
 	description: z.string().min(1).max(256),
 	thumbnail: serverFileSchema.optional(),
 	content: z.string().min(1).max(102_400),
+	isDraft: z.boolean().optional(),
 });
 
 export const postUpdateSchema = atLeastOneDefined(postCreateSchema.partial()).and(
@@ -22,4 +23,8 @@ export const postsQuerySchema = z.object({
 	search: z.string().max(64).optional(),
 	orderBy: z.enum(['createdAt', 'title']).optional(),
 	orderDir: z.enum(['asc', 'desc']).optional(),
+});
+
+export const draftsQuerySchema = z.object({
+	search: z.string().max(64).optional(),
 });

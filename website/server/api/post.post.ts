@@ -15,7 +15,7 @@ export default defineEventHandler(async (event) => {
 	if (!result.success)
 		throwValidationError(result);
 
-	const { title, description, thumbnail, content } = result.data;
+	const { title, description, thumbnail, content, isDraft } = result.data;
 
 	let dbThumbnail: File | undefined = undefined;
 
@@ -49,6 +49,7 @@ export default defineEventHandler(async (event) => {
 				slug,
 				content,
 				readTimeSec,
+				isDraft,
 				author: { connect: { id: session.user.id } },
 				thumbnail: dbThumbnail && { connect: { uid: dbThumbnail.uid } },
 			},

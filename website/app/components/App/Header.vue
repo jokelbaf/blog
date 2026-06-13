@@ -2,9 +2,13 @@
 import type { DropdownMenuItem, NavigationMenuItem } from '@nuxt/ui';
 import type { VariantType } from 'motion-v';
 import { motion } from 'motion-v';
+import { LazyPostDraftsModal } from '#components';
 
 const { loggedIn, user, clear, openInPopup } = useUserSession();
 const route = useRoute();
+
+const overlay = useOverlay();
+const draftsModal = overlay.create(LazyPostDraftsModal);
 
 const dropdownItems = computed<DropdownMenuItem[][]>(() => {
 	if (!user.value) return [];
@@ -25,6 +29,11 @@ const dropdownItems = computed<DropdownMenuItem[][]>(() => {
 						label: 'New Post',
 						icon: 'lucide:pencil-line',
 						to: '/post/new',
+					},
+					{
+						label: 'Drafts',
+						icon: 'lucide:file-text',
+						onSelect: () => draftsModal.open(),
 					},
 				]]
 			: []),
