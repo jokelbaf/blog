@@ -83,6 +83,7 @@ const orderDirLabel = computed(() => orderDirItems.value.find(i => i.value === o
 						icon="lucide:list-chevrons-up-down"
 						:ui="{
 							base: 'h-8',
+							value: 'flex',
 							content: 'w-auto min-w-(--reka-select-trigger-width)',
 							trailingIcon: 'group-data-[state=open]:rotate-180 transition-transform duration-200',
 						}"
@@ -97,6 +98,7 @@ const orderDirLabel = computed(() => orderDirItems.value.find(i => i.value === o
 						icon="lucide:arrow-up-down"
 						:ui="{
 							base: 'h-8',
+							value: 'flex',
 							content: 'w-auto min-w-(--reka-select-trigger-width)',
 							trailingIcon: 'group-data-[state=open]:rotate-180 transition-transform duration-200',
 						}"
